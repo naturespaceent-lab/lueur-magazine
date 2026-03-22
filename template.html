@@ -320,9 +320,46 @@
       .people-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
+    /* ===== HAMBURGER MENU ===== */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: #1a1a1a;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
     @media (max-width: 600px) {
       .nav { padding: 20px 20px; }
-      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-bottom: 1px solid #e5e5e5;
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+      }
+      .nav-links.show { display: flex; }
+      .nav { position: relative; }
       .section { padding: 0 20px; }
       .cover-section { padding: 40px 20px 0; }
       .cover-title { font-size: 26px; }
@@ -337,6 +374,9 @@
   <!-- NAV -->
   <nav class="nav">
     <a href="index.html" class="logo">LUEUR</a>
+    <button class="hamburger" aria-label="Menu" onclick="this.classList.toggle('open');document.querySelector('.nav-links').classList.toggle('show')">
+      <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links">
       <li><a href="#beauty">Beauty</a></li>
       <li><a href="#fashion">Fashion</a></li>

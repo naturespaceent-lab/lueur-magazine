@@ -428,17 +428,44 @@ function classifyTopic(title) {
   return 'general';
 }
 
+// Track used titles globally to avoid duplicates
+const _usedRewrittenTitles = new Set();
+
 function rewriteTitle(originalTitle) {
   const artist = extractArtist(originalTitle);
   const topic = classifyTopic(originalTitle);
 
   if (artist) {
     const templates = TITLE_TEMPLATES[topic] || TITLE_TEMPLATES.general;
-    const template = pickRandom(templates);
-    return template.replace(/\{artist\}/g, artist);
+    // Try each template to find a unique title
+    const shuffled = [...templates].sort(() => Math.random() - 0.5);
+    for (const template of shuffled) {
+      const candidate = template.replace(/\{artist\}/g, artist);
+      if (!_usedRewrittenTitles.has(candidate)) {
+        _usedRewrittenTitles.add(candidate);
+        return candidate;
+      }
+    }
+    // All templates used for this artist+topic — append a differentiator
+    const fallback = shuffled[0].replace(/\{artist\}/g, artist);
+    const unique = `${fallback} — ${originalTitle.slice(0, 30)}`;
+    _usedRewrittenTitles.add(unique);
+    return unique;
   }
 
-  return pickRandom(NO_ARTIST_TEMPLATES);
+  // No artist — pick from NO_ARTIST_TEMPLATES, ensuring uniqueness
+  const shuffled = [...NO_ARTIST_TEMPLATES].sort(() => Math.random() - 0.5);
+  for (const t of shuffled) {
+    if (!_usedRewrittenTitles.has(t)) {
+      _usedRewrittenTitles.add(t);
+      return t;
+    }
+  }
+  // All no-artist templates exhausted — generate with counter
+  const counter = _usedRewrittenTitles.size;
+  const fallback = `${shuffled[0]} (No. ${counter})`;
+  _usedRewrittenTitles.add(fallback);
+  return fallback;
 }
 
 // ============================================================
@@ -968,20 +995,35 @@ function rewriteArticleBody(articleContent, title) {
   const inlineImages = (articleContent?.images || []).slice(1, 4);
 
   const paragraphs = [];
+  const usedTexts = new Set();
+  const pickUnique = (arr) => {
+    const available = arr.filter(t => !usedTexts.has(t));
+    if (available.length === 0) return arr[Math.floor(Math.random() * arr.length)];
+    const picked = available[Math.floor(Math.random() * available.length)];
+    usedTexts.add(picked);
+    return picked;
+  };
+  const shuffleAndPickUnique = (arr, n) => {
+    const available = arr.filter(t => !usedTexts.has(t));
+    const shuffled = [...available].sort(() => Math.random() - 0.5);
+    const picked = shuffled.slice(0, Math.min(n, shuffled.length));
+    for (const p of picked) usedTexts.add(p);
+    return picked;
+  };
 
   if (artist) {
     const templates = BODY_TEMPLATES[topic] || BODY_TEMPLATES.general;
     const sub = (text) => text.replace(/\{artist\}/g, artist);
 
-    paragraphs.push({ type: 'intro', text: sub(pickRandom(templates.opening)) });
+    paragraphs.push({ type: 'intro', text: sub(pickUnique(templates.opening)) });
 
     const bgCount = targetParagraphs >= 10 ? 2 : 1;
-    for (const bg of shuffleAndPick(SHARED_PARAGRAPHS.background, bgCount)) {
+    for (const bg of shuffleAndPickUnique(SHARED_PARAGRAPHS.background, bgCount)) {
       paragraphs.push({ type: 'body', text: sub(bg) });
     }
 
     const analysisCount = targetParagraphs >= 10 ? 3 : 2;
-    for (const a of shuffleAndPick(templates.analysis, analysisCount)) {
+    for (const a of shuffleAndPickUnique(templates.analysis, analysisCount)) {
       paragraphs.push({ type: 'body', text: sub(a) });
     }
 
@@ -990,12 +1032,12 @@ function rewriteArticleBody(articleContent, title) {
     }
 
     const detailCount = targetParagraphs >= 10 ? 2 : 1;
-    for (const d of shuffleAndPick(SHARED_PARAGRAPHS.detail, detailCount)) {
+    for (const d of shuffleAndPickUnique(SHARED_PARAGRAPHS.detail, detailCount)) {
       paragraphs.push({ type: 'body', text: sub(d) });
     }
 
     const reactionCount = targetParagraphs >= 10 ? 2 : 1;
-    for (const r of shuffleAndPick(SHARED_PARAGRAPHS.reaction, reactionCount)) {
+    for (const r of shuffleAndPickUnique(SHARED_PARAGRAPHS.reaction, reactionCount)) {
       paragraphs.push({ type: 'body', text: sub(r) });
     }
 
@@ -1003,17 +1045,17 @@ function rewriteArticleBody(articleContent, title) {
       paragraphs.push({ type: 'image', src: inlineImages[1] });
     }
 
-    paragraphs.push({ type: 'body', text: sub(pickRandom(SHARED_PARAGRAPHS.impact)) });
-    paragraphs.push({ type: 'closing', text: sub(pickRandom(templates.closing)) });
+    paragraphs.push({ type: 'body', text: sub(pickUnique(SHARED_PARAGRAPHS.impact)) });
+    paragraphs.push({ type: 'closing', text: sub(pickUnique(templates.closing)) });
 
   } else {
-    paragraphs.push({ type: 'intro', text: pickRandom(NO_ARTIST_BODY.opening) });
+    paragraphs.push({ type: 'intro', text: pickUnique(NO_ARTIST_BODY.opening) });
 
-    for (const bg of shuffleAndPick(SHARED_PARAGRAPHS.noArtist.background, 2)) {
+    for (const bg of shuffleAndPickUnique(SHARED_PARAGRAPHS.noArtist.background, 2)) {
       paragraphs.push({ type: 'body', text: bg });
     }
 
-    for (const a of shuffleAndPick(NO_ARTIST_BODY.analysis, 2)) {
+    for (const a of shuffleAndPickUnique(NO_ARTIST_BODY.analysis, 2)) {
       paragraphs.push({ type: 'body', text: a });
     }
 
@@ -1021,11 +1063,11 @@ function rewriteArticleBody(articleContent, title) {
       paragraphs.push({ type: 'image', src: inlineImages[0] });
     }
 
-    for (const d of shuffleAndPick(SHARED_PARAGRAPHS.noArtist.detail, 2)) {
+    for (const d of shuffleAndPickUnique(SHARED_PARAGRAPHS.noArtist.detail, 2)) {
       paragraphs.push({ type: 'body', text: d });
     }
 
-    for (const r of shuffleAndPick(SHARED_PARAGRAPHS.noArtist.reaction, 1)) {
+    for (const r of shuffleAndPickUnique(SHARED_PARAGRAPHS.noArtist.reaction, 1)) {
       paragraphs.push({ type: 'body', text: r });
     }
 
@@ -1033,8 +1075,8 @@ function rewriteArticleBody(articleContent, title) {
       paragraphs.push({ type: 'image', src: inlineImages[1] });
     }
 
-    paragraphs.push({ type: 'body', text: pickRandom(SHARED_PARAGRAPHS.noArtist.impact) });
-    paragraphs.push({ type: 'closing', text: pickRandom(NO_ARTIST_BODY.closing) });
+    paragraphs.push({ type: 'body', text: pickUnique(SHARED_PARAGRAPHS.noArtist.impact) });
+    paragraphs.push({ type: 'closing', text: pickUnique(NO_ARTIST_BODY.closing) });
   }
 
   return { paragraphs };
@@ -1103,11 +1145,21 @@ function generateBeautyCard(article) {
       </a>`;
 }
 
+const FASHION_EXCERPTS = [
+  `A closer look at the style choices that are redefining what it means to dress with intention this season.`,
+  `How beauty and fashion converge in the most unexpected ways — a visual exploration of this week's standout moments.`,
+  `The intersection of K-pop aesthetics and global fashion continues to produce genuinely surprising results.`,
+  `From street style to haute couture, the influence of Korean beauty culture on the wider fashion conversation is undeniable.`,
+  `An in-depth look at the styling decisions that have captivated both industry insiders and devoted followers.`,
+  `Why the latest fashion moments from Seoul deserve a closer examination — and what they reveal about where style is heading.`,
+  `The wardrobe choices that defined this week in K-beauty and K-fashion, analyzed through LUEUR's editorial lens.`,
+  `Breaking down the visual language of contemporary K-pop fashion and its growing impact on luxury trends worldwide.`,
+];
+
 function generateFashionBlock(article, idx) {
   if (!article) return '';
   const cat = displayCategoryFromTopic(classifyTopic(article.originalTitle || article.title));
-  // Generate a short excerpt from the title
-  const excerpt = `A closer look at ${escapeHtml(article.title).toLowerCase().includes('fashion') ? 'the fashion moments' : 'the style choices'} that are shaping the conversation this season.`;
+  const excerpt = FASHION_EXCERPTS[idx % FASHION_EXCERPTS.length];
   return `<a href="${escapeHtml(article.localUrl)}" class="fashion-block">
         <div class="fashion-img">
           ${imgTag(article, 640, 500)}
@@ -1274,15 +1326,17 @@ function assignSections(articles) {
   }
 
   const withRealImages = articles.filter(a => !a.hasPlaceholder);
-  const used = new Set();
+  const used = new Set();        // tracks by link (article identity)
+  const usedTitles = new Set();  // tracks by title (deduplication)
 
   const take = (pool, count) => {
     const result = [];
     for (const article of pool) {
       if (result.length >= count) break;
-      if (!used.has(article.link)) {
+      if (!used.has(article.link) && !usedTitles.has(article.title)) {
         result.push(article);
         used.add(article.link);
+        usedTitles.add(article.title);
       }
     }
     return result;
