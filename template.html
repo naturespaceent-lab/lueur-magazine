@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUEUR | K-Beauty & K-Fashion Magazine</title>
+  <meta name="description" content="LUEUR — The definitive source for K-Beauty, K-Fashion, and the style icons shaping global culture.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    a { color: #1a1a1a; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      border-bottom: 1px solid #e5e5e5;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 28px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    .nav-links a:hover { color: #1a1a1a; text-decoration: none; }
+
+    /* ===== COVER / HERO ===== */
+    .cover-section {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px 0;
+    }
+
+    .cover-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .cover-overlay {
+      padding: 32px 0 0;
+    }
+
+    .cover-category {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 10px;
+    }
+
+    .cover-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-style: italic;
+      font-size: 36px;
+      line-height: 1.25;
+      max-width: 700px;
+      margin-bottom: 12px;
+    }
+
+    .cover-meta {
+      font-size: 12px;
+      color: #999;
+      padding-bottom: 60px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 60px 0 20px;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 40px;
+    }
+
+    /* ===== EDITORIAL PICKS ===== */
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .editorial-large img { aspect-ratio: 3 / 4; }
+
+    .editorial-large .ed-cat,
+    .editorial-small .ed-cat {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    .editorial-large .ed-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .editorial-large .ed-date,
+    .editorial-small .ed-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .editorial-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .editorial-small {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .editorial-small img { aspect-ratio: 1 / 1; }
+
+    .editorial-small .ed-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    /* ===== BEAUTY ===== */
+    .beauty-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .beauty-card { border-bottom: 1px solid #e5e5e5; padding-bottom: 32px; }
+
+    .beauty-card img { aspect-ratio: 16 / 10; margin-bottom: 16px; }
+
+    .beauty-card .beauty-cat {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 6px;
+    }
+
+    .beauty-card .beauty-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .beauty-card .beauty-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ===== FASHION ===== */
+    .fashion-blocks { margin-bottom: 80px; }
+
+    .fashion-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .fashion-block:nth-child(even) .fashion-img { order: 2; }
+    .fashion-block:nth-child(even) .fashion-text { order: 1; }
+
+    .fashion-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .fashion-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 40px;
+    }
+
+    .fashion-text .fashion-cat {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 14px;
+    }
+
+    .fashion-text .fashion-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .fashion-text .fashion-excerpt {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #666;
+      margin-bottom: 14px;
+    }
+
+    .fashion-text .fashion-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ===== PEOPLE ===== */
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .people-card img { aspect-ratio: 3 / 4; margin-bottom: 12px; }
+
+    .people-card .people-name {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+
+    .people-card .people-role {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid #e5e5e5;
+      padding: 48px 40px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 20px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #999;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .editorial-grid { grid-template-columns: 1fr; }
+      .fashion-block { grid-template-columns: 1fr; }
+      .fashion-block:nth-child(even) .fashion-img { order: 1; }
+      .fashion-block:nth-child(even) .fashion-text { order: 2; }
+      .people-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .nav { padding: 20px 20px; }
+      .nav-links { display: none; }
+      .section { padding: 0 20px; }
+      .cover-section { padding: 40px 20px 0; }
+      .cover-title { font-size: 26px; }
+      .beauty-grid { grid-template-columns: 1fr; }
+      .editorial-small { grid-template-columns: 1fr; }
+      .fashion-text { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="logo">LUEUR</a>
+    <ul class="nav-links">
+      <li><a href="#beauty">Beauty</a></li>
+      <li><a href="#fashion">Fashion</a></li>
+      <li><a href="#culture">Culture</a></li>
+      <li><a href="#people">People</a></li>
+    </ul>
+  </nav>
+
+  <!-- COVER / HERO -->
+  <section class="cover-section">
+    {{HERO_IMAGE}}
+    <div class="cover-overlay">
+      <div class="cover-category">{{HERO_CATEGORY}}</div>
+      <h1 class="cover-title">{{HERO_TITLE}}</h1>
+      <div class="cover-meta">{{HERO_DATE}} &mdash; {{HERO_SOURCE}}</div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL PICKS -->
+  <div class="section">
+    <div class="section-title">Editorial Picks</div>
+    <div class="editorial-grid">
+      {{EDITORIAL_PICKS}}
+    </div>
+  </div>
+
+  <!-- BEAUTY -->
+  <div class="section" id="beauty">
+    <div class="section-title">Beauty</div>
+    <div class="beauty-grid">
+      {{BEAUTY_ARTICLES}}
+    </div>
+  </div>
+
+  <!-- FASHION -->
+  <div class="section" id="fashion">
+    <div class="section-title">Fashion</div>
+    <div class="fashion-blocks">
+      {{FASHION_ARTICLES}}
+    </div>
+  </div>
+
+  <!-- PEOPLE -->
+  <div class="section" id="people">
+    <div class="section-title">People</div>
+    <div class="people-grid">
+      {{PEOPLE_ARTICLES}}
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">LUEUR</div>
+    <div class="footer-copy">&copy; 2026 LUEUR Magazine. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>

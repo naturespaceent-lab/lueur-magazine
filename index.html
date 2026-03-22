@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUEUR | K-Beauty & K-Fashion Magazine</title>
+  <meta name="description" content="LUEUR — The definitive source for K-Beauty, K-Fashion, and the style icons shaping global culture.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    a { color: #1a1a1a; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      border-bottom: 1px solid #e5e5e5;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 28px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    .nav-links a:hover { color: #1a1a1a; text-decoration: none; }
+
+    /* ===== COVER / HERO ===== */
+    .cover-section {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 40px 0;
+    }
+
+    .cover-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .cover-overlay {
+      padding: 32px 0 0;
+    }
+
+    .cover-category {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 10px;
+    }
+
+    .cover-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-style: italic;
+      font-size: 36px;
+      line-height: 1.25;
+      max-width: 700px;
+      margin-bottom: 12px;
+    }
+
+    .cover-meta {
+      font-size: 12px;
+      color: #999;
+      padding-bottom: 60px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 60px 0 20px;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 40px;
+    }
+
+    /* ===== EDITORIAL PICKS ===== */
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .editorial-large img { aspect-ratio: 3 / 4; }
+
+    .editorial-large .ed-cat,
+    .editorial-small .ed-cat {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    .editorial-large .ed-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .editorial-large .ed-date,
+    .editorial-small .ed-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .editorial-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .editorial-small {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .editorial-small img { aspect-ratio: 1 / 1; }
+
+    .editorial-small .ed-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    /* ===== BEAUTY ===== */
+    .beauty-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .beauty-card { border-bottom: 1px solid #e5e5e5; padding-bottom: 32px; }
+
+    .beauty-card img { aspect-ratio: 16 / 10; margin-bottom: 16px; }
+
+    .beauty-card .beauty-cat {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 6px;
+    }
+
+    .beauty-card .beauty-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .beauty-card .beauty-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ===== FASHION ===== */
+    .fashion-blocks { margin-bottom: 80px; }
+
+    .fashion-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .fashion-block:nth-child(even) .fashion-img { order: 2; }
+    .fashion-block:nth-child(even) .fashion-text { order: 1; }
+
+    .fashion-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .fashion-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 40px;
+    }
+
+    .fashion-text .fashion-cat {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 14px;
+    }
+
+    .fashion-text .fashion-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .fashion-text .fashion-excerpt {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #666;
+      margin-bottom: 14px;
+    }
+
+    .fashion-text .fashion-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ===== PEOPLE ===== */
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .people-card img { aspect-ratio: 3 / 4; margin-bottom: 12px; }
+
+    .people-card .people-name {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+
+    .people-card .people-role {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid #e5e5e5;
+      padding: 48px 40px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: normal;
+      font-size: 20px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #999;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .editorial-grid { grid-template-columns: 1fr; }
+      .fashion-block { grid-template-columns: 1fr; }
+      .fashion-block:nth-child(even) .fashion-img { order: 1; }
+      .fashion-block:nth-child(even) .fashion-text { order: 2; }
+      .people-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .nav { padding: 20px 20px; }
+      .nav-links { display: none; }
+      .section { padding: 0 20px; }
+      .cover-section { padding: 40px 20px 0; }
+      .cover-title { font-size: 26px; }
+      .beauty-grid { grid-template-columns: 1fr; }
+      .editorial-small { grid-template-columns: 1fr; }
+      .fashion-text { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="logo">LUEUR</a>
+    <ul class="nav-links">
+      <li><a href="#beauty">Beauty</a></li>
+      <li><a href="#fashion">Fashion</a></li>
+      <li><a href="#culture">Culture</a></li>
+      <li><a href="#people">People</a></li>
+    </ul>
+  </nav>
+
+  <!-- COVER / HERO -->
+  <a href="articles/article-001.html" style="display:block;color:inherit;text-decoration:none"><section class="cover-section">
+    <img class="cover-image" src="images/article-0-9142.jpg" alt="Beauty, Fashion, Culture — A LUEUR Weekly Brief" loading="eager" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Beauty%2C%20Fashion%2C%20Cul/1600/900" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+    <div class="cover-overlay">
+      <div class="cover-category">CULTURE</div>
+      <h1 class="cover-title">Beauty, Fashion, Culture — A LUEUR Weekly Brief</h1>
+      <div class="cover-meta">March 18, 2026 &mdash; DramaNews</div>
+    </div>
+  </section></a>
+
+  <!-- EDITORIAL PICKS -->
+  <div class="section">
+    <div class="section-title">Editorial Picks</div>
+    <div class="editorial-grid">
+      <a href="articles/article-002.html" class="editorial-large">
+        <img src="images/article-1-9142.jpg" alt="The Fashion Dispatch: K-Style Updates You Need to See" width="640" height="854" loading="eager" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/The%20Fashion%20Dispatch/640/854" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="ed-content">
+          <div class="ed-cat">COVER</div>
+          <div class="ed-title">The Fashion Dispatch: K-Style Updates You Need to See</div>
+          <div class="ed-date">March 22, 2026</div>
+        </div>
+      </a><div class="editorial-stack"><a href="articles/article-003.html" class="editorial-small">
+          <img src="images/article-2-9143.jpg" alt="LUEUR's Essential Style Roundup" width="300" height="300" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/LUEUR's%20Essential%20St/300/300" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+          <div class="ed-content">
+            <div class="ed-cat">BEAUTY</div>
+            <div class="ed-title">LUEUR's Essential Style Roundup</div>
+            <div class="ed-date">March 21, 2026</div>
+          </div>
+        </a><a href="articles/article-004.html" class="editorial-small">
+          <img src="images/article-3-9143.jpg" alt="Beauty, Fashion, Culture — A LUEUR Weekly Brief" width="300" height="300" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Beauty%2C%20Fashion%2C%20Cul/300/300" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+          <div class="ed-content">
+            <div class="ed-cat">CHARTS</div>
+            <div class="ed-title">Beauty, Fashion, Culture — A LUEUR Weekly Brief</div>
+            <div class="ed-date">March 20, 2026</div>
+          </div>
+        </a></div>
+    </div>
+  </div>
+
+  <!-- BEAUTY -->
+  <div class="section" id="beauty">
+    <div class="section-title">Beauty</div>
+    <div class="beauty-grid">
+      <a href="articles/article-005.html" class="beauty-card">
+        <img src="images/article-4-9143.jpg" alt="Sound and Style: The Visual Language of BTS's New Release" width="580" height="362" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Sound%20and%20Style%3A%20The/580/362" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="beauty-cat">CULTURE</div>
+        <div class="beauty-title">Sound and Style: The Visual Language of BTS's New Release</div>
+        <div class="beauty-date">March 19, 2026</div>
+      </a>
+      <a href="articles/article-006.html" class="beauty-card">
+        <img src="images/article-5-9144.jpg" alt="K-Beauty's Biggest Moments, Curated by LUEUR" width="580" height="362" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/K-Beauty's%20Biggest%20M/580/362" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="beauty-cat">COVER</div>
+        <div class="beauty-title">K-Beauty's Biggest Moments, Curated by LUEUR</div>
+        <div class="beauty-date">March 19, 2026</div>
+      </a>
+      <a href="articles/article-007.html" class="beauty-card">
+        <img src="images/article-6-9144.jpg" alt="K-Beauty's Biggest Moments, Curated by LUEUR" width="580" height="362" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/K-Beauty's%20Biggest%20M/580/362" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="beauty-cat">CULTURE</div>
+        <div class="beauty-title">K-Beauty's Biggest Moments, Curated by LUEUR</div>
+        <div class="beauty-date">March 17, 2026</div>
+      </a>
+      <a href="articles/article-008.html" class="beauty-card">
+        <img src="images/article-7-9144.jpg" alt="The Fashion Dispatch: K-Style Updates You Need to See" width="580" height="362" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/The%20Fashion%20Dispatch/580/362" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="beauty-cat">COVER</div>
+        <div class="beauty-title">The Fashion Dispatch: K-Style Updates You Need to See</div>
+        <div class="beauty-date">March 16, 2026</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FASHION -->
+  <div class="section" id="fashion">
+    <div class="section-title">Fashion</div>
+    <div class="fashion-blocks">
+      <a href="articles/article-009.html" class="fashion-block">
+        <div class="fashion-img">
+          <img src="images/article-8-9240.jpg" alt="The Fashion Dispatch: K-Style Updates You Need to See" width="640" height="500" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/The%20Fashion%20Dispatch/640/500" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        </div>
+        <div class="fashion-text">
+          <div class="fashion-cat">BEAUTY</div>
+          <div class="fashion-title">The Fashion Dispatch: K-Style Updates You Need to See</div>
+          <div class="fashion-excerpt">A closer look at the fashion moments that are shaping the conversation this season.</div>
+          <div class="fashion-date">March 16, 2026</div>
+        </div>
+      </a>
+      <a href="articles/article-010.html" class="fashion-block">
+        <div class="fashion-img">
+          <img src="images/article-9-9240.jpg" alt="Beauty, Fashion, Culture — A LUEUR Weekly Brief" width="640" height="500" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Beauty%2C%20Fashion%2C%20Cul/640/500" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        </div>
+        <div class="fashion-text">
+          <div class="fashion-cat">CULTURE</div>
+          <div class="fashion-title">Beauty, Fashion, Culture — A LUEUR Weekly Brief</div>
+          <div class="fashion-excerpt">A closer look at the fashion moments that are shaping the conversation this season.</div>
+          <div class="fashion-date">March 15, 2026</div>
+        </div>
+      </a>
+      <a href="articles/article-011.html" class="fashion-block">
+        <div class="fashion-img">
+          <img src="images/article-10-9241.jpg" alt="Beauty, Fashion, Culture — A LUEUR Weekly Brief" width="640" height="500" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Beauty%2C%20Fashion%2C%20Cul/640/500" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        </div>
+        <div class="fashion-text">
+          <div class="fashion-cat">BEAUTY</div>
+          <div class="fashion-title">Beauty, Fashion, Culture — A LUEUR Weekly Brief</div>
+          <div class="fashion-excerpt">A closer look at the fashion moments that are shaping the conversation this season.</div>
+          <div class="fashion-date">March 14, 2026</div>
+        </div>
+      </a>
+      <a href="articles/article-012.html" class="fashion-block">
+        <div class="fashion-img">
+          <img src="images/article-11-9241.png" alt="Inside This Week's Most Talked-About Beauty Trends" width="640" height="500" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Inside%20This%20Week's%20M/640/500" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        </div>
+        <div class="fashion-text">
+          <div class="fashion-cat">BEAUTY</div>
+          <div class="fashion-title">Inside This Week's Most Talked-About Beauty Trends</div>
+          <div class="fashion-excerpt">A closer look at the style choices that are shaping the conversation this season.</div>
+          <div class="fashion-date">March 13, 2026</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- PEOPLE -->
+  <div class="section" id="people">
+    <div class="section-title">People</div>
+    <div class="people-grid">
+      <a href="articles/article-013.html" class="people-card">
+        <img src="images/article-12-9241.jpg" alt="From Charts to Catwalks: BTS's Dual Dominance" width="300" height="400" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/From%20Charts%20to%20Catwa/300/400" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="people-name">From Charts to Catwalks: BTS's Dual Dominance</div>
+        <div class="people-role">Style Icon</div>
+      </a>
+      <a href="articles/article-014.html" class="people-card">
+        <img src="images/article-13-9241.jpg" alt="Red Carpet Report: P1Harmony's Best Award Show Moments" width="300" height="400" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Red%20Carpet%20Report%3A%20P/300/400" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="people-name">Red Carpet Report: P1Harmony's Best Award Show Moments</div>
+        <div class="people-role">Style Icon</div>
+      </a>
+      <a href="articles/article-015.html" class="people-card">
+        <img src="images/article-14-9241.jpg" alt="Beauty, Fashion, Culture — A LUEUR Weekly Brief" width="300" height="400" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Beauty%2C%20Fashion%2C%20Cul/300/400" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="people-name">Beauty, Fashion, Culture — A LUEUR Weekly Brief</div>
+        <div class="people-role">Featured</div>
+      </a>
+      <a href="articles/article-016.html" class="people-card">
+        <img src="images/article-15-9241.jpg" alt="K-Beauty's Biggest Moments, Curated by LUEUR" width="300" height="400" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/K-Beauty's%20Biggest%20M/300/400" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+        <div class="people-name">K-Beauty's Biggest Moments, Curated by LUEUR</div>
+        <div class="people-role">Featured</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">LUEUR</div>
+    <div class="footer-copy">&copy; 2026 LUEUR Magazine. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>

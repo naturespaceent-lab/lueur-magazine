@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty, Fashion, Culture — A LUEUR Weekly Brief | LUEUR</title>
+  <meta name="description" content="Beauty, Fashion, Culture — A LUEUR Weekly Brief">
+  <meta property="og:title" content="Beauty, Fashion, Culture — A LUEUR Weekly Brief | LUEUR">
+  <meta property="og:image" content="../images/article-10-9241.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lueur: {
+              black: '#1a1a1a',
+              gold: '#c4a77d',
+              gray: '#e5e5e5',
+              meta: '#999999',
+            }
+          },
+          fontFamily: {
+            bodoni: ['"Bodoni Moda"', 'Georgia', 'serif'],
+            franklin: ['"Libre Franklin"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Libre Franklin', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: #1a1a1a; text-decoration: none; transition: color 0.3s ease; }
+    a:hover { color: #c4a77d; }
+    img { display: block; width: 100%; height: auto; object-fit: cover; }
+
+    /* ===== NAV ===== */
+    .lueur-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .lueur-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+    }
+
+    .lueur-logo {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-weight: 400;
+      font-size: 32px;
+      letter-spacing: 0.3em;
+      color: #1a1a1a;
+      text-transform: uppercase;
+    }
+
+    .lueur-nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .lueur-nav-links a {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+    }
+
+    .lueur-nav-links a:hover { color: #c4a77d; }
+
+    /* ===== BACK LINK ===== */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: #999;
+      margin: 32px 0 16px;
+      transition: color 0.3s;
+    }
+    .back-link:hover { color: #c4a77d; }
+
+    /* ===== ARTICLE LAYOUT ===== */
+    .article-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .article-wide {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ===== ARTICLE HEADER ===== */
+    .article-header {
+      padding: 40px 0 32px;
+    }
+
+    .article-category {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #c4a77d;
+      margin-bottom: 20px;
+    }
+
+    .article-title {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.2;
+      color: #1a1a1a;
+      margin-bottom: 24px;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: #999;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    /* ===== HERO IMAGE (full-bleed) ===== */
+    .article-hero {
+      margin: 0 0 48px;
+    }
+
+    .article-hero img {
+      width: 100%;
+      max-height: 600px;
+      object-fit: cover;
+    }
+
+    .photo-credit {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: #999;
+      padding: 12px 0 0;
+      text-align: right;
+    }
+
+    /* ===== ARTICLE BODY ===== */
+    .article-body {
+      padding: 0 0 60px;
+    }
+
+    .article-body p {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.9;
+      color: #333;
+      margin-bottom: 28px;
+    }
+
+    .article-body .editorial-intro {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.85;
+      color: #1a1a1a;
+      border-left: 2px solid #c4a77d;
+      padding-left: 24px;
+      margin-bottom: 36px;
+    }
+
+    .article-body .editorial-closing {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #666;
+      font-style: italic;
+      padding-top: 24px;
+      border-top: 1px solid #e5e5e5;
+      margin-top: 16px;
+    }
+
+    .article-body blockquote {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.5;
+      color: #1a1a1a;
+      border-left: 3px solid #c4a77d;
+      padding: 8px 0 8px 28px;
+      margin: 40px 0;
+    }
+
+    .article-body .article-inline-image {
+      margin: 40px -80px;
+    }
+
+    .article-body .article-inline-image img {
+      width: 100%;
+    }
+
+    /* ===== SOURCE ATTRIBUTION ===== */
+    .source-attribution {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: #999;
+      padding: 24px 0;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 60px;
+    }
+
+    .source-attribution a { color: #c4a77d; }
+    .source-attribution a:hover { color: #1a1a1a; }
+
+    .read-original {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== RELATED ARTICLES ===== */
+    .related-section {
+      padding: 0 0 80px;
+    }
+
+    .related-label {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #c4a77d;
+      margin-bottom: 32px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .related-card img { aspect-ratio: 16/10; margin-bottom: 16px; }
+
+    .related-card .related-category {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c4a77d;
+      margin-bottom: 8px;
+    }
+
+    .related-card h3 {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.4;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .related-card .date {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: #999;
+    }
+
+    /* ===== FOOTER ===== */
+    .lueur-footer {
+      border-top: 1px solid #e5e5e5;
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-weight: 400;
+      font-size: 24px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+    }
+
+    .footer-copy {
+      font-family: 'Libre Franklin', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: #999;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .lueur-nav-inner { padding: 16px 20px; }
+      .lueur-nav-links { display: none; }
+      .article-container { padding: 0 20px; }
+      .article-wide { padding: 0 20px; }
+      .article-body .article-inline-image { margin: 32px -20px; }
+      .related-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="lueur-nav">
+    <div class="lueur-nav-inner">
+      <a href="../index.html" class="lueur-logo">LUEUR</a>
+      <ul class="lueur-nav-links">
+        <li><a href="../index.html#beauty">Beauty</a></li>
+        <li><a href="../index.html#fashion">Fashion</a></li>
+        <li><a href="../index.html#culture">Culture</a></li>
+        <li><a href="../index.html#people">People</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <a href="../index.html" class="back-link">
+      <iconify-icon icon="solar:arrow-left-linear" width="16"></iconify-icon>
+      Back to LUEUR
+    </a>
+  </div>
+
+  <!-- ARTICLE HEADER -->
+  <div class="article-container">
+    <header class="article-header">
+      <div class="article-category">BEAUTY</div>
+      <h1 class="article-title">Beauty, Fashion, Culture — A LUEUR Weekly Brief</h1>
+      <div class="article-meta">
+        <span>March 14, 2026</span>
+        <span>LUEUR Editorial</span>
+      </div>
+    </header>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <div class="article-wide">
+    <div class="article-hero">
+      <img src="../images/article-10-9241.jpg" alt="Beauty, Fashion, Culture — A LUEUR Weekly Brief" width="760" height="428" loading="eager" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/Beauty%2C%20Fashion%2C%20Cul/800/450" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+      <div class="article-container">
+        <div class="photo-credit">Photo: &copy; Soompi</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-container">
+    <div class="article-body">
+      <div class="editorial-intro">The world of K-beauty and K-fashion never stands still. This week brings a fresh collection of stories that reveal the cultural forces shaping how Asia influences global style.</div>
+        <p>The intersection of K-pop and fashion has produced a new model of cultural influence. Unlike traditional celebrity endorsement, K-pop's relationship with fashion is bidirectional and deeply integrated into the content that artists create. The result is a form of influence that feels organic precisely because it often is.</p>
+        <p>Fashion's center of gravity continues its eastward shift. Seoul Fashion Week now attracts international press coverage comparable to its European counterparts, while Korean street style has become a primary source of trend intelligence for forecasting agencies worldwide. This is no longer an emerging market — it is an established creative force.</p>
+        <p>The beauty dimension of this story is equally compelling. K-beauty's emphasis on skin health over coverage, on prevention over correction, has fundamentally altered how a generation thinks about personal care. Each new trend that emerges from this ecosystem carries that philosophical foundation.</p>
+        <p>Industry observers note a recurring pattern: what begins as a K-pop style choice frequently becomes a mainstream fashion reference within eighteen months. This cycle of influence has accelerated as social media compresses the distance between Seoul and every other fashion capital.</p>
+        <p>Data from global beauty retailers confirms what industry observers have long suspected: products associated with K-beauty trends and K-pop artists consistently outperform comparable items without these associations. The premium that Korean aesthetic credibility commands is substantial and growing.</p>
+        <p>The creative infrastructure behind K-pop's fashion output deserves more recognition than it typically receives. Stylists, makeup artists, hair directors, and photographers work in concert to create visual identities that can sustain multiple years of public scrutiny. This is world-class creative work by any standard.</p>
+        <p>The response from the traditional fashion establishment has evolved from curiosity to genuine respect. Major fashion publications now maintain dedicated K-pop style coverage, a development that reflects both audience demand and editorial recognition of the creative merit involved.</p>
+        <p>The cultural exchange between Korean and global fashion continues to accelerate. As K-beauty principles become mainstream and K-pop aesthetics influence everything from street style to haute couture, we are witnessing the early stages of what will likely be a decades-long transformation in global beauty and fashion standards.</p>
+        <div class="editorial-closing">LUEUR will continue to track the stories that define the global influence of K-beauty and K-fashion. For insight beyond the surface, stay with us.</div>
+    </div>
+
+    <div class="source-attribution">
+          Source: <a href="https://www.soompi.com/article/1826814wpp/phantom-lawyer-soars-to-its-highest-ratings-yet-as-the-practical-guide-to-love-hits-saturday-high" target="_blank" rel="noopener noreferrer">Soompi</a>
+          <br><a href="https://www.soompi.com/article/1826814wpp/phantom-lawyer-soars-to-its-highest-ratings-yet-as-the-practical-guide-to-love-hits-saturday-high" target="_blank" rel="noopener noreferrer" class="read-original">Read original article &rarr;</a>
+        </div>
+  </div>
+
+  <!-- RELATED -->
+  <div class="article-container">
+    <div class="related-section">
+      <div class="related-label">Continue Reading</div>
+      <div class="related-grid">
+        
+          <a href="../articles/article-006.html" class="related-card">
+            <div class="thumb">
+              <img src="../images/article-5-9144.jpg" alt="K-Beauty's Biggest Moments, Curated by LUEUR" width="400" height="225" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/K-Beauty's%20Biggest%20M/400/225" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+            </div>
+            <div class="related-category">COVER</div>
+            <h3>K-Beauty's Biggest Moments, Curated by LUEUR</h3>
+            <span class="date">March 19, 2026</span>
+          </a>
+          <a href="../articles/article-008.html" class="related-card">
+            <div class="thumb">
+              <img src="../images/article-7-9144.jpg" alt="The Fashion Dispatch: K-Style Updates You Need to See" width="400" height="225" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/The%20Fashion%20Dispatch/400/225" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+            </div>
+            <div class="related-category">COVER</div>
+            <h3>The Fashion Dispatch: K-Style Updates You Need to See</h3>
+            <span class="date">March 16, 2026</span>
+          </a>
+          <a href="../articles/article-002.html" class="related-card">
+            <div class="thumb">
+              <img src="../images/article-1-9142.jpg" alt="The Fashion Dispatch: K-Style Updates You Need to See" width="400" height="225" loading="lazy" referrerpolicy="no-referrer" data-fallback="https://picsum.photos/seed/The%20Fashion%20Dispatch/400/225" onerror="if(!this.dataset.failed){this.dataset.failed='1';this.src=this.dataset.fallback}">
+            </div>
+            <div class="related-category">COVER</div>
+            <h3>The Fashion Dispatch: K-Style Updates You Need to See</h3>
+            <span class="date">March 22, 2026</span>
+          </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="lueur-footer">
+    <div class="footer-logo">LUEUR</div>
+    <div class="footer-copy">&copy; 2026 LUEUR Magazine. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
