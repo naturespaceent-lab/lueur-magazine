@@ -476,9 +476,9 @@ const IMAGES_DIR = join(__dirname, 'images');
 const ARTICLES_DIR = join(__dirname, 'articles');
 
 async function downloadImage(url, filename) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15_000);
   try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 15_000);
     const res = await fetch(url, {
       signal: controller.signal,
       headers: {
@@ -486,7 +486,6 @@ async function downloadImage(url, filename) {
         'Referer': new URL(url).origin,
       },
     });
-    clearTimeout(timer);
 
     if (!res.ok || !res.body) return null;
 
@@ -505,6 +504,8 @@ async function downloadImage(url, filename) {
     return `images/${localFile}`;
   } catch {
     return null;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
